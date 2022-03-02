@@ -1,0 +1,103 @@
+<resources>
+    <string name="white_sdk_name">WhiteSdk</string>
+    <string name="app_name">whiteboard-demo</string>
+    <string name="title_activity_start">title_activity_start</string>
+    <string name="uuid">uuid</string>
+    <string name="join">Join</string>
+    <string name="replay">Replay</string>
+    <string name="create">Create</string>
+    <string name="title_activity_play">PlayActivity</string>
+    <string name="broadcast_command">broadcast_command</string>
+    <string name="scalePptToFit_command">scalePptToFit_command</string>
+    <string name="getBroadcastState_command">getBroadcastState_command</string>
+    <string name="dispatchCustomEvent_command">dispatchCustomEvent_command</string>
+    <string name="cleanScene_command">cleanScene_command</string>
+    <string name="insertNewScene_command">insertNewScene_command</string>
+    <string name="insert_ppt_command">insert_ppt_command</string>
+    <string name="insertImage_command">insertImage_command</string>
+    <string name="getScene_command">getScene_command</string>
+    <string name="getRoomPhase_command">getRoomPhase_command</string>
+    <string name="getRoomState_command">getRoomState_command</string>
+    <string name="disconnect_command">disconnect_command</string>
+    <string name="writable_false_command">writable_false_command</string>
+    <string name="writable_true_command">writable_true_command</string>
+    <string name="disable_command">disable_command</string>
+    <string name="cancelDisable_command">cancelDisable_command</string>
+    <string name="pencil_command">pencil_command</string>
+    <string name="rectangle_command">rectangle_command</string>
+    <string name="convertPoint_command">convertPoint_command</string>
+    <string name="externalEvent_command">externalEvent_command</string>
+    <string name="zoomChange_command">zoomChange_command</string>
+    <string name="color_command">color_command</string>
+    <string name="shape_command">shape_command</string>
+    <string name="getTimeInfo_command">getTimeInfo_command</string>
+    <string name="getPlayState_command">getPlayState_command</string>
+    <string name="getPhase_command">getPhase_command</string>
+    <string name="getPlaybackSpeed_command">getPlaybackSpeed_command</string>
+    <string name="seek_command">seek_command</string>
+    <string name="textarea_command">textarea_command</string>
+    <string name="selector_command">selector_command</string>
+    <string name="staticConvert">staticConvert</string>
+    <string name="dynamicConvert">dynamicConvert</string>
+    <string name="next_scene">next_scene</string>
+    <string name="getPreview_command">getPreview_command</string>
+    <string name="getSceneImage_command">getSceneImage_command</string>
+    <string name="set_bound">set_bound</string>
+    <string name="orientation">orientation</string>
+    <string name="reconnect">reconnect</string>
+    <string name="play">play</string>
+    <string name="pause">pause</string>
+    <string name="rest">rest</string>
+    <string name="title_activity_pure_replay">PureReplayActivity</string>
+    <string name="pureReplay">pureReplay</string>
+    <string name="windowTest">windowTest</string>
+
+    <!--ijkplayer-->
+    <string name="N_A">N/A</string>
+    <string name="close">Close</string>
+
+    <string name="exit">Exit</string>
+    <string name="sample">Sample</string>
+    <string name="recent">Recent</string>
+    <string name="settings">Settings</string>
+    <string name="tracks">Tracks</string>
+    <string name="toggle_player">Player</string>
+    <string name="toggle_render">Render</string>
+    <string name="toggle_ratio">Scale</string>
+    <string name="show_info">Info</string>
+    <string name="vdec">vdec</string>
+    <string name="fps">fps</string>
+    <string name="v_cache">v-cache</string>
+    <string name="a_cache">a-cache</string>
+    <string name="load_cost">load-cost</string>
+    <string name="seek_cost">seek_cost</string>
+    <string name="seek_load_cost">seek_load_cost</string>
+    <string name="tcp_speed">tcp_speed</string>
+    <string name="bit_rate">bit_rate</string>
+
+    <string name="VideoView_error_text_invalid_progressive_playback">Invalid progressive playback</string>
+    <string name="VideoView_error_text_unknown">Unknown</string>
+    <string name="VideoView_error_button">OK</string>
+
+    <string name="VideoView_render_none">Render: None</string>
+    <string name="VideoView_render_surface_view">Render: SurfaceView</string>
+    <string name="VideoView_render_texture_view">Render: TextureView</string>
+
+    <string name="VideoView_player_none">Player: None</string>
+    <string name="VideoView_player_AndroidMediaPlayer">Player: AndroidMediaPlayer</string>
+    <string name="VideoView_player_IjkMediaPlayer">Player: IjkMediaPlayer</string>
+    <string name="VideoView_player_IjkExoMediaPlayer">Player: IjkExoMediaPlayer</string>
+
+    <string name="VideoView_ar_aspect_fit_parent">Aspect / Fit parent</string>
+    <string name="VideoView_ar_aspect_fill_parent">Aspect / Fill parent</string>
+    <string name="VideoView_ar_aspect_wrap_content">Aspect / Wrap content</string>
+    <string name="VideoView_ar_match_parent">Free / Fill parent</string>
+    <string name="VideoView_ar_16_9_fit_parent">16:9 / Fit parent</string>
+    <string name="VideoView_ar_4_3_fit_parent">4:3 / Fit parent</string>
+    <string name="moveRectangle">moveRectangle</string>
+    <string name="copy_paste">copy_paste</string>
+    <string name="redo_undo">redo_undo</string>
+    <string name="move_camera">move_camera</string>
+    <string name="duplicate">duplicate</string>
+    <string name="deleteOperation">deleteOperation</string>
+</resources>

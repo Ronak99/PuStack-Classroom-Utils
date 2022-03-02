@@ -1,0 +1,53 @@
+package com.pustack.live_session_whiteboard.whiteboardSdk;
+
+import com.pustack.live_session_whiteboard.whiteboardSdk.domain.PlayerPhase;
+import com.pustack.live_session_whiteboard.whiteboardSdk.domain.PlayerState;
+import com.pustack.live_session_whiteboard.whiteboardSdk.domain.SDKError;
+
+/**
+ * 白板回放的事件回调接口。
+ */
+public interface PlayerListener {
+    /**
+     * 播放状态切换回调。
+     */
+    void onPhaseChanged(PlayerPhase phase);
+
+    /**
+     * 首帧加载回调。
+     */
+    void onLoadFirstFrame();
+
+    /// @cond test
+    /**
+     * 分片切换回调，需要了解分片机制。目前无实际用途。
+     * 文档中隐藏
+     */
+    void onSliceChanged(String slice);
+    /// @endcond
+
+    /**
+     * 回放状态发生变化的回调，只会包含实际发生改变的属性。
+     */
+    void onPlayerStateChanged(PlayerState modifyState);
+
+    /**
+     * 出错导致回放暂停的回调。
+     */
+    void onStoppedWithError(SDKError error);
+
+    /**
+     * 回放进度发生变化回调。
+     */
+    void onScheduleTimeChanged(long time);
+
+    /**
+     * 添加帧出错的回调。
+     */
+    void onCatchErrorWhenAppendFrame(SDKError error);
+
+    /**
+     * 渲染时出错的回调。
+     */
+    void onCatchErrorWhenRender(SDKError error);
+}
