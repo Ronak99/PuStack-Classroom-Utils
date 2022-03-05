@@ -1,11 +1,14 @@
 package com.pustack.live_session_whiteboard.nativeView;
 
 import android.content.Context;
+import android.os.Build;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebSettings;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.annotation.VisibleForTesting;
 
 import com.alibaba.sdk.android.httpdns.HttpDns;
@@ -28,6 +31,7 @@ import com.pustack.live_session_whiteboard.whiteboardSdk.domain.Promise;
 import com.pustack.live_session_whiteboard.whiteboardSdk.domain.RoomPhase;
 import com.pustack.live_session_whiteboard.whiteboardSdk.domain.RoomState;
 import com.pustack.live_session_whiteboard.whiteboardSdk.domain.SDKError;
+import com.pustack.live_session_whiteboard.whiteboardSdk.domain.ViewMode;
 
 import io.flutter.plugin.platform.PlatformView;
 
@@ -42,9 +46,6 @@ public class NativeView implements PlatformView{
     WhiteSdk mWhiteSdk;
     Room mRoom;
     final Gson gson = new Gson();
-    boolean showWhiteboard = true;
-
-    @NonNull private final TextView textView;
 
     @VisibleForTesting
     RoomCallbacks mRoomCallbackHook = new AbstractRoomCallbacks() {
@@ -67,10 +68,6 @@ public class NativeView implements PlatformView{
 
         initializeCredentials(creationParams);
 
-        textView = new TextView(context);
-        textView.setTextSize(15);
-        textView.setText("Loading...");
-
         mWhiteboardView = new WhiteboardView(context);
         mWhiteboardView.getSettings().setAllowUniversalAccessFromFileURLs(true);
 
@@ -87,7 +84,7 @@ public class NativeView implements PlatformView{
     @NonNull
     @Override
     public View getView() {
-        return showWhiteboard ? mWhiteboardView : textView;
+        return mWhiteboardView;
     }
 
     @Override
@@ -110,65 +107,19 @@ public class NativeView implements PlatformView{
 
         final Date joinDate = new Date();
 
-        mWhiteSdk.joinRoom(roomParams, new RoomCallbacks() {
-            @Override
-            public void onCanUndoStepsUpdate(long canUndoSteps) {
-                mRoomCallbackHook.onCanUndoStepsUpdate(canUndoSteps);
-                logRoomInfo("canUndoSteps: " + canUndoSteps);
-            }
-
-            @Override
-            public void onCanRedoStepsUpdate(long canRedoSteps) {
-                mRoomCallbackHook.onCanRedoStepsUpdate(canRedoSteps);
-                logRoomInfo("onCanRedoStepsUpdate: " + canRedoSteps);
-            }
-
-            @Override
-            public void onCatchErrorWhenAppendFrame(long userId, Exception error) {
-                mRoomCallbackHook.onCatchErrorWhenAppendFrame(userId, error);
-                logRoomInfo("onCatchErrorWhenAppendFrame: " + userId + " error " + error.getMessage());
-            }
-
-            @Override
-            public void onPhaseChanged(RoomPhase phase) {
-                mRoomCallbackHook.onPhaseChanged(phase);
-                //在此处可以处理断连后的重连逻辑
-                logRoomInfo("onPhaseChanged: " + phase.name());
-            }
-
-            @Override
-            public void onDisconnectWithError(Exception e) {
-                mRoomCallbackHook.onDisconnectWithError(e);
-                logRoomInfo("onDisconnectWithError: " + e.getMessage());
-            }
-
-            @Override
-            public void onKickedWithReason(String reason) {
-                mRoomCallbackHook.onKickedWithReason(reason);
-                logRoomInfo("onKickedWithReason: " + reason);
-            }
-
-            @Override
-            public void onRoomStateChanged(RoomState modifyState) {
-                mRoomCallbackHook.onRoomStateChanged(modifyState);
-                logRoomInfo("onRoomStateChanged:" + gson.toJson(modifyState));
-            }
-        }, new Promise<Room>() {
+        mWhiteSdk.joinRoom(roomParams, new Promise<Room>() {
             @Override
             public void then(Room room) {
                 //记录加入房间消耗的时长
                 logRoomInfo("native join in room duration: " + (System.currentTimeMillis() - joinDate.getTime()) / 1000f + "s");
                 mRoom = room;
+                addCustomEventListener();
 
                 MemberState memberState = new MemberState();
-                memberState.setStrokeColor(new int[]{99, 99, 99});
-                memberState.setCurrentApplianceName(Appliance.PENCIL);
-                memberState.setStrokeWidth(10);
-                memberState.setTextSize(10);
+                memberState.setCurrentApplianceName(Appliance.CLICKER);
                 mRoom.setMemberState(memberState);
-
-
-                addCustomEventListener();
+                mRoom.setViewMode(ViewMode.Follower);
+                mRoom.disableDeviceInputs(true);
             }
 
             @Override
