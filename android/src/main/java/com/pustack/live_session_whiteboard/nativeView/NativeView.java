@@ -26,6 +26,7 @@ import com.pustack.live_session_whiteboard.whiteboardSdk.WhiteSdk;
 import com.pustack.live_session_whiteboard.whiteboardSdk.WhiteSdkConfiguration;
 import com.pustack.live_session_whiteboard.whiteboardSdk.WhiteboardView;
 import com.pustack.live_session_whiteboard.whiteboardSdk.domain.Appliance;
+import com.pustack.live_session_whiteboard.whiteboardSdk.domain.MemberInformation;
 import com.pustack.live_session_whiteboard.whiteboardSdk.domain.MemberState;
 import com.pustack.live_session_whiteboard.whiteboardSdk.domain.Promise;
 import com.pustack.live_session_whiteboard.whiteboardSdk.domain.RoomPhase;
@@ -69,7 +70,7 @@ public class NativeView implements PlatformView{
         initializeCredentials(creationParams);
 
         mWhiteboardView = new WhiteboardView(context);
-        mWhiteboardView.getSettings().setAllowUniversalAccessFromFileURLs(true);
+       mWhiteboardView.getSettings().setAllowUniversalAccessFromFileURLs(true);
 
         useHttpDnsService(false);
 
@@ -96,16 +97,12 @@ public class NativeView implements PlatformView{
 
     private void joinRoom(){
         WhiteSdkConfiguration configuration = new WhiteSdkConfiguration(whiteboardAppId, true);
-        /*显示用户头像*/
-        configuration.setUserCursor(true);
-        //动态 ppt 需要的自定义字体，如果没有使用，无需调用
-        configuration.setFonts(new MapBuilder<String, String>().put("宋体", "https://your-cdn.com/Songti.ttf").build());
-
         mWhiteSdk = new WhiteSdk(mWhiteboardView, getView().getContext(), configuration);
 
         RoomParams roomParams = new RoomParams(roomId, roomToken, uid);
-
+        roomParams.setWritable(false);
         final Date joinDate = new Date();
+
 
         mWhiteSdk.joinRoom(roomParams, new Promise<Room>() {
             @Override
@@ -114,12 +111,7 @@ public class NativeView implements PlatformView{
                 logRoomInfo("native join in room duration: " + (System.currentTimeMillis() - joinDate.getTime()) / 1000f + "s");
                 mRoom = room;
                 addCustomEventListener();
-
-                MemberState memberState = new MemberState();
-                memberState.setCurrentApplianceName(Appliance.CLICKER);
-                mRoom.setMemberState(memberState);
-                mRoom.setViewMode(ViewMode.Follower);
-                mRoom.disableDeviceInputs(true);
+                mRoom.disableOperations(true);
             }
 
             @Override
